@@ -1,0 +1,29 @@
+DELETE  http://localhost:3001/api/persons/63ebdafa11858ab33b978c14
+###
+POST http://localhost:3003/api/blogs/
+Content-Type: application/json
+
+{
+    "title": "buenas",
+    "author": "tardes",
+  "url": "jesucristo",
+  "likes": 14
+}
+###
+POST http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{
+    "name": "Buen Dia",
+    "number": 14561561
+}
+###
+GET http://localhost:3001/api/persons/
+###
+PUT http://localhost:3001/api/persons/63e8d44c68bb964c15be8ed1
+Content-Type: application/json
+
+{
+    "name": "aldksidmsopo",
+    "number": 48754891
+}
