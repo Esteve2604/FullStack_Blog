@@ -1,0 +1,19 @@
+{
+  "name": "fullstack_blog",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Esteve2604/FullStack_Blog.git"
+  },
+  "author": "Esteban Aspe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Esteve2604/FullStack_Blog/issues"
+  },
+  "homepage": "https://github.com/Esteve2604/FullStack_Blog#readme"
+}
