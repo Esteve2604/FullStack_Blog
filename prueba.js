@@ -49,7 +49,29 @@ const blogs = [
         __v: 0
     }
 ]
-const mostBlogs = (listOfBlogs) => {
-    
+const totalaux = (listOfBlogs) => {
+    let authors = {}
+    listOfBlogs.forEach(element => {
+        authors.hasOwnProperty(element) ? authors[element]++ : authors[element] = 1
+    });
+    return authors
 }
-mostBlogs(blogs)
+const mostaux = (listOfBlogs, thing) => {
+    let most = 0
+    let mostauthor = {}
+    for (const property in listOfBlogs) {
+        if (listOfBlogs[property] > most) {
+            most = listOfBlogs[property]
+            mostauthor.author = property
+            mostauthor[thing] = listOfBlogs[property]
+        }
+    }
+    return mostauthor
+}
+const mostBlogs = (listOfBlogs) => {
+    const author = listOfBlogs.map(x => x.author)
+    let authors = totalaux(author)
+    return mostaux(authors, 'blogs')
+}
+
+console.log(mostLiked(blogs))

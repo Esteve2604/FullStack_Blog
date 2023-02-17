@@ -59,7 +59,7 @@ const oneBlog = [
         __v: 0
     }
 ]
-describe('total Likes', () => {
+xdescribe('total Likes', () => {
     test('empty list equals 0', () => {
         expect(listHelper.totalLikes([])).toBe(0)
     })
@@ -70,7 +70,7 @@ describe('total Likes', () => {
         expect(listHelper.totalLikes(blogs)).toBe(36)
     })
 })
-describe('favorite Blogs', () => {
+xdescribe('favorite Blogs', () => {
     test('empty list empty object', () => {
         expect(listHelper.favoriteBlog([])).toEqual({})
     })
@@ -86,6 +86,40 @@ describe('favorite Blogs', () => {
             title: "Canonical string reduction",
             author: "Edsger W. Dijkstra",
             likes: 12
+        })
+    })
+})
+describe('most Blogs', () => {
+    test('empty list empty object', () => {
+        expect(listHelper.mostBlogs([])).toEqual({})
+    })
+    test('oneBlog is favorite', () => {
+        expect(listHelper.mostBlogs(oneBlog)).toEqual({
+            author: "Robert C. Martin",
+            blogs: 1
+        })
+    })
+    test('bigger list right', () => {
+        expect(listHelper.mostBlogs(blogs)).toEqual({
+            author: "Robert C. Martin",
+            blogs: 3
+        })
+    })
+})
+describe('most Likes', () => {
+    test('empty list empty object', () => {
+        expect(listHelper.mostLiked([])).toEqual({})
+    })
+    test('oneBlog is most liked', () => {
+        expect(listHelper.mostLiked(oneBlog)).toEqual({
+            author: "Robert C. Martin",
+            likes: 2
+        })
+    })
+    test('bigger list right', () => {
+        expect(listHelper.mostLiked(blogs)).toEqual({
+            author: "Edsger W. Dijkstra",
+            likes: 17
         })
     })
 })

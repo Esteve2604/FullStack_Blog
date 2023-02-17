@@ -24,9 +24,39 @@ const favoriteBlog = (listOfBlogs) => {
         likes: listOfBlogs[mostFav].likes
     }
 }
+const mostaux = (listOfBlogs, thing) => {
+    let most = 0
+    let mostauthor = {}
+    for (const property in listOfBlogs) {
+        if (listOfBlogs[property] > most) {
+            most = listOfBlogs[property]
+            mostauthor.author = property
+            mostauthor[thing] = listOfBlogs[property]
+        }
+    }
+    return mostauthor
+}
 const mostBlogs = (listOfBlogs) => {
-    console.log(fp.countBy(listOfBlogs)('author'));
+    const author = listOfBlogs.map(x => x.author)
+    let authors = {}
+    author.forEach(element => {
+        authors.hasOwnProperty(element) ? authors[element]++ : authors[element] = 1
+    });
+    return mostaux(authors, 'blogs')
+}
+const mostLiked = (listOfBlogs) => {
+    const authLik = listOfBlogs.map(x => {
+        return {
+            'author': x.author,
+            'likes': x.likes
+        }
+    })
+    let totalLike = {}
+    authLik.forEach(element => {
+        totalLike.hasOwnProperty(element.author) ? totalLike[element.author]+=element.likes : totalLike[element.author] = element.likes
+    });
     
+    return mostaux(totalLike, 'likes')
 }
 
-module.exports = { totalLikes, favoriteBlog }
+module.exports = { totalLikes, favoriteBlog, mostBlogs, mostLiked }
