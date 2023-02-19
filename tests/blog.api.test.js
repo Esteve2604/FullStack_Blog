@@ -13,12 +13,10 @@ const initialBlogs = [
         __v: 0
     },
     {
-        _id: "5a422bc61b54a676234d17fc",
         title: "Type wars",
         author: "Robert C. Martin",
         url: "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html",
         likes: 2,
-        __v: 0
     }
 ]
 beforeEach(async () => {
@@ -28,7 +26,7 @@ beforeEach(async () => {
     BlogObject = new Blog(initialBlogs[1])
     await BlogObject.save()
 })
-describe('blogTest', () => {
+describe('get blogs', () => {
     test('response and length', async () => {
         const response = await api.get('/api/blogs')
             .expect(200)
@@ -38,8 +36,11 @@ describe('blogTest', () => {
     }, 1000000) //aumenta el timeOut
     test('id is defined', async () => {
         const response = await api.get('/api/blogs')
+        console.log(response.body)
         response.body.forEach(blog => expect(blog.id).toBeDefined())
     })
+})
+describe('post blogs', () => {
     test('post works and likes don\'t change', async () => {
         const objectSent = {
             "title": "buenas",
@@ -72,6 +73,26 @@ describe('blogTest', () => {
         }
         await api.post('/api/blogs').send(objectSent1).expect(400)
         await api.post('/api/blogs').send(objectSent2).expect(400)
+    })
+})
+describe('delete blogs', () => {
+    test('delete blog [1]', async () => {
+        const BlogToDelete = await Blog.find({ title: "Type wars" })
+        await api.delete(`/api/blogs/${BlogToDelete[0].id}`).expect(204)
+    })
+})
+describe('update blogs', () => {
+    test('update blog[0]', async () => {
+        const BlogToUpdate = await Blog.find({ title: "TDD harms architecture" })
+        const updatedBlog = await api.put(`/api/blogs/${BlogToUpdate[0].id}`).send({ likes: 15 })
+        expect(updatedBlog.body).toEqual({
+            id: "5a422ba71b54a676234d17fb",
+            title: "TDD harms architecture",
+            author: "Robert C. Martin",
+            url: "http://blog.cleancoder.com/uncle-bob/2017/03/03/TDD-Harms-Architecture.html",
+            likes: 15,
+            __v: 0
+        })
     })
 })
 

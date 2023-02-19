@@ -2,6 +2,22 @@ DELETE  http://localhost:3001/api/persons/63ebdafa11858ab33b978c14
 ###
 GET http://localhost:3003/api/blogs/
 ###
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+  "username": "buenas",
+  "name": "buendia",
+  "password": "buenasTardes" 
+}
+###
+PUT http://localhost:3003/api/blogs/63f0c2f8a155d40f28611a98
+Content-Type: application/json
+
+{
+  "likes": 15
+}
+###
 POST http://localhost:3003/api/blogs/
 Content-Type: application/json
 

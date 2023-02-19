@@ -24,4 +24,19 @@ blogsRouter.post('/', async (request, response) => {
     const result = await blog.save()
     response.status(201).json(result)
 })
+blogsRouter.delete('/:id', async (request, response, next) => {
+    try {
+        await Blog.findByIdAndDelete(request.params.id)
+        response.status(204).end()
+    } catch(exception) { //Innecesario, modulo express-async-errors activado
+        next(exception)
+    }
+})
+blogsRouter.put('/:id', async (request, response) => {
+    const blog= {
+        likes: request.body.likes
+    }
+    const updatedBlog=await Blog.findByIdAndUpdate(request.params.id, blog, {new: true})
+    response.json(updatedBlog)
+})
 module.exports = blogsRouter
