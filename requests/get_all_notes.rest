@@ -1,14 +1,14 @@
 DELETE  http://localhost:3001/api/persons/63ebdafa11858ab33b978c14
 ###
-GET http://localhost:3003/api/blogs/
+GET http://localhost:3003/api/users
 ###
 POST http://localhost:3003/api/users
 Content-Type: application/json
 
 {
-  "username": "buenas",
+  "username": "hola",
   "name": "buendia",
-  "password": "buenasTardes" 
+  "password": "a" 
 }
 ###
 PUT http://localhost:3003/api/blogs/63f0c2f8a155d40f28611a98
@@ -17,6 +17,8 @@ Content-Type: application/json
 {
   "likes": 15
 }
+###
+DELETE http://localhost:3003/api/blogs/63f0c51d4e7ea7f57d2199bd
 ###
 POST http://localhost:3003/api/blogs/
 Content-Type: application/json
