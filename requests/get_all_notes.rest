@@ -2,6 +2,7 @@ DELETE  http://localhost:3001/api/persons/63ebdafa11858ab33b978c14
 ###
 GET http://localhost:3003/api/users
 ###
+###
 POST http://localhost:3003/api/users
 Content-Type: application/json
 
@@ -27,11 +28,12 @@ Content-Type: application/json
   "likes": 15
 }
 ###
-DELETE http://localhost:3003/api/blogs/63f0c51d4e7ea7f57d2199bd
+DELETE http://localhost:3003/api/blogs/63f3bbb46ca62c90343d7569
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhvbGEiLCJpZCI6IjYzZjI1YzhiODM1NTE5YjU4NmM0Nzg4OCIsImlhdCI6MTY3NjkyMzE3OX0.wo5rXgNAB-7b7pnhxfJ2tbJ8RfZ3xc4jeg5iv5Uc-yA
 ###
 POST http://localhost:3003/api/blogs/
 Content-Type: application/json
-Authorization: Bearer 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhvbGEiLCJpZCI6IjYzZjI1YzhiODM1NTE5YjU4NmM0Nzg4OCIsImlhdCI6MTY3NjkxOTg4MH0.PJOsk72MyGnXmNlYWdOagRGlezghSnmji5eOGzNOioI
 
 {
     "title": "buenas",
