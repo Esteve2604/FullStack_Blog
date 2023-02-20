@@ -8,8 +8,17 @@ Content-Type: application/json
 {
   "username": "hola",
   "name": "buendia",
-  "password": "a" 
+  "password": "buendia" 
 }
+###
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+  "username": "hola",
+  "password": "buendia" 
+}
+###
 ###
 PUT http://localhost:3003/api/blogs/63f0c2f8a155d40f28611a98
 Content-Type: application/json
@@ -22,6 +31,7 @@ DELETE http://localhost:3003/api/blogs/63f0c51d4e7ea7f57d2199bd
 ###
 POST http://localhost:3003/api/blogs/
 Content-Type: application/json
+Authorization: Bearer 
 
 {
     "title": "buenas",
