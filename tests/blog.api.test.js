@@ -3,6 +3,7 @@ const supertest = require('supertest')
 const app = require('../app')
 const api = supertest(app)
 const Blog = require('../models/blog')
+const User = require('../models/user')
 const initialBlogs = [
     {
         _id: "5a422ba71b54a676234d17fb",
@@ -19,7 +20,19 @@ const initialBlogs = [
         likes: 2,
     }
 ]
+const initialUsers = [
+    {
+        username: "buenas",
+        password: "alga",
+        name: "buendia"
+    }
+]
+let token=null
 beforeEach(async () => {
+    await User.deleteMany({})
+    await api.post('/api/users').send(initialUsers[0])
+    const authorizedUser= await api.post('/api/login').send({username: initialUsers[0].username, password: initialUsers[0].password})
+    token = authorizedUser.body.token
     await Blog.deleteMany({})
     let BlogObject = new Blog(initialBlogs[0])
     await BlogObject.save()
@@ -48,7 +61,7 @@ describe('post blogs', () => {
             "url": "jesucristo",
             "likes": 14
         }
-        const response = await api.post('/api/blogs').send(objectSent).expect(201)
+        const response = await api.post('/api/blogs').send(objectSent).set('authorization',`Bearer ${token}`).expect(201)
         expect(response.body.likes).toBe(objectSent.likes)
         const verify = await api.get('/api/blogs')
         expect(verify.body).toHaveLength(initialBlogs.length + 1)
@@ -59,7 +72,7 @@ describe('post blogs', () => {
             "author": "quiensabra",
             "url": "nose",
         }
-        const response = await api.post('/api/blogs').send(objectSent).expect(201)
+        const response = await api.post('/api/blogs').set('Authorization', `Bearer ${token}`).send(objectSent).expect(201)
         expect(response.body.likes).toBe(0)
     })
     test('post with missing url or title returns 400 status', async () => {
@@ -71,8 +84,26 @@ describe('post blogs', () => {
             "title": "dia",
             "author": "quiensabra",
         }
-        await api.post('/api/blogs').send(objectSent1).expect(400)
-        await api.post('/api/blogs').send(objectSent2).expect(400)
+        await api.post('/api/blogs').set('Authorization', `Bearer ${token}`).send(objectSent1).expect(400)
+        await api.post('/api/blogs').set('Authorization', `Bearer ${token}`).send(objectSent2).expect(400)
+    })
+    test('token not provided return 401', async () => {
+        const objectSent = {
+            "title": "buenas",
+            "author": "tardes",
+            "url": "jesucristo",
+            "likes": 14
+        }
+        await api.post('/api/blogs').send(objectSent).expect(401)
+    })
+    test('wrong token not provided return 401', async () => {
+        const objectSent = {
+            "title": "buenas",
+            "author": "tardes",
+            "url": "jesucristo",
+            "likes": 14
+        }
+        await api.post('/api/blogs').set('Authorization', `Bearer 157s1d`).send(objectSent).expect(401)
     })
 })
 describe('delete blogs', () => {

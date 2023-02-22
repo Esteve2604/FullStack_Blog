@@ -18,9 +18,6 @@ const tokenExtractor = (request, response, next) => {
 }
 const userExtractor = async (request, response, next) => {
   const decodedToken = jwt.verify(request.token, process.env.SECRET)
-    if (!decodedToken) {
-        return response.status(401).json({ error: 'token invalid' })
-    }
     request.user = await User.findById(decodedToken.id)
     next()
 }
@@ -36,7 +33,7 @@ const errorHandler = (error, request, response, next) => {
   } else if (error.name === 'ValidationError') {
     return response.status(400).json({ error: error.message })
   } else if (error.name === 'JsonWebTokenError') {
-    return response.status(400).json({ error: error.message })
+    return response.status(401).json({ error: error.message })
   } else if (error.name === 'ReferenceError') {
     return response.status(400).json({ error: error.message })
   }
